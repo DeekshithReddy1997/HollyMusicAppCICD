@@ -1,0 +1,36 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build docker image
+        run: docker build -t deekshithreddy97/HollyMusicApplications .
+
+      - name: Public image to docker hub
+        run: docker push deekshithreddy97/HollyMusicApplications:latest
+
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull deekshithreddy97/HollyMusicApplications:latest
+
+      - name: Delete old container
+        run: docker rm -f HollyMusicApplications-container
+        
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name HollyMusicApplications-container deekshithreddy97/HollyMusicApplications  
