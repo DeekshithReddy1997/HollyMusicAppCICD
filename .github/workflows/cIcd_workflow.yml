@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    needs: install-docker
     runs-on: [ubuntu-latest]
 
     steps:
