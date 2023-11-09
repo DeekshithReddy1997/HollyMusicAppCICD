@@ -4,33 +4,33 @@ on:
   push:
     branches: [ main ]
 
-
 jobs:
   build:
+    needs: install-docker
     runs-on: [ubuntu-latest]
-    
+
     steps:
+      - name: Install Docker
+        uses: actions/setup-docker@v2
+        with:
+          image: docker/buildx-action:v1
       - name: Checkout source
         uses: actions/checkout@v3
-      
       - name: Login to docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-
       - name: Build docker image
         run: docker build -t deekshithreddy97/hollymusicapplications .
-
-      - name: Public image to docker hub
+      - name: Push image to docker hub
         run: docker push deekshithreddy97/hollymusicapplications:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
+
     steps:
       - name: Pull image from docker hub
         run: docker pull deekshithreddy97/hollymusicapplications:latest
-
       - name: Delete old container
         run: docker rm -f hollymusicapplications-container
-        
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name hollymusicapplications-container deekshithreddy97/hollymusicapplications  
+        run: docker run -d -p 8080:8080 --name hollymusicapplications-container deekshithreddy97/hollymusicapplications
