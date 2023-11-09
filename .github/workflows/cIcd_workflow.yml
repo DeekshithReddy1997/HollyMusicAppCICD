@@ -33,4 +33,4 @@ jobs:
         run: docker rm -f hollymusicapplications-container
         
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name HollyMusicApplications-container deekshithreddy97/HollyMusicApplications  
+        run: docker run -d -p 8080:8080 --name hollymusicapplications-container deekshithreddy97/hollymusicapplications  
