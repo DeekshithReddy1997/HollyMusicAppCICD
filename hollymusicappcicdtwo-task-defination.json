@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:505276250894:task-definition/hollymusicappcicd-task-defination:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:505276250894:task-definition/hollymusicappcicdtwo-task-defination:1",
     "containerDefinitions": [
         {
             "name": "hollymusicappcicd",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/hollymusicappcicd-task-defination",
+                    "awslogs-group": "/ecs/hollymusicappcicdtwo-task-defination",
                     "awslogs-region": "ap-south-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -32,7 +32,8 @@
             }
         }
     ],
-    "family": "hollymusicappcicd-task-defination",
+    "family": "hollymusicappcicdtwo-task-defination",
+    "taskRoleArn": "arn:aws:iam::505276250894:role/ecsTaskExecutionRole",
     "executionRoleArn": "arn:aws:iam::505276250894:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "revision": 1,
@@ -50,6 +51,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -78,7 +82,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-11-17T07:00:56.552Z",
+    "registeredAt": "2023-11-17T09:00:28.175Z",
     "registeredBy": "arn:aws:iam::505276250894:user/DeveloperV1One",
     "tags": []
 }
